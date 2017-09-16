@@ -1,7 +1,8 @@
 package br.com.bemobi.model;
 
+import org.apache.commons.validator.UrlValidator;
+
 public class Url {
-	
 	private Integer id;
 	private String url;
 	private String urlCurta;
@@ -46,5 +47,4 @@ public class Url {
 	public String toString() {
 		return "Url [id=" + id + ", url=" + url + ", urlCurta=" + urlCurta + ", alias=" + alias + "]";
 	}
-	
 }
