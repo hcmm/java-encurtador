@@ -12,22 +12,23 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
 import br.com.bemobi.dao.UrlDao;
 import br.com.bemobi.model.Url;
 
 @Path("/url")
 public class UrlService {
+	
 	private UrlDao urlDao;
 	private static final String CHARSET_UTF8 = ";charset=utf-8";
+	
 	@PostConstruct
 	private void init() {
 		urlDao = new UrlDao();
 	}
 	@GET
-	@Path("/listar")
-	@Produces(MediaType.APPLICATION_JSON + CHARSET_UTF8)
-	private List<Url> listaUrl(){
+	@Path("/list")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Url> listaUrl(){
 		List<Url> lista = null;
 		try {
 			lista = urlDao.listarUrl();
@@ -37,10 +38,10 @@ public class UrlService {
 		return lista;
 	}
 	@POST
-	@Path("/adicionar")
-	@Consumes(MediaType.TEXT_PLAIN)
-	@Produces(MediaType.APPLICATION_JSON + CHARSET_UTF8)
-	private void adicionarUrl(Url url) {
+	@Path("/add")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String adicionarUrl(Url url) {
 		String msg = "";
 		System.out.println(url.getUrl());
 		try {
@@ -50,25 +51,26 @@ public class UrlService {
 			msg = "Erro ao adicionar!";
 			e.printStackTrace();
 		}
+		return msg;
 	}
 	@GET
-	@Path("/buscar/{id}")
+	@Path("/get/{id}")
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Url buscarUrl(@PathParam("id") Integer id) {
 		Url url = null;
 		try {
-			urlDao.buscarUrl(id);
+		url =	urlDao.buscarUrl(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return url;
 	}
 	@DELETE
-	@Path("/remover/{id}")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.TEXT_PLAIN)
-	public void removerUrl(Url url,@PathParam("id") Integer id) {
+	@Path("/delete/{id}")
+	@Consumes(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String removerUrl(Url url,@PathParam("id") Integer id) {
 		String msg = "";
 		try {
 			urlDao.removerUrl(id);
@@ -77,12 +79,13 @@ public class UrlService {
 			msg = "Url nao removida!";
 			e.printStackTrace();
 		}
+		return msg;
 	}
 	@PUT
-	@Path("/editar/{id}")
-	@Consumes(MediaType.APPLICATION_ATOM_XML+CHARSET_UTF8)
+	@Path("/edit/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public void editarUrl(Url url,@PathParam("id")Integer id) {
+	public String editarUrl(Url url,@PathParam("id")Integer id) {
 		String msg = "";
 		try {
 			urlDao.editarUrl(url, id);
@@ -91,5 +94,6 @@ public class UrlService {
 			msg="Url não editada!";
 			e.printStackTrace();
 		}
+		return msg;
 	}
 }

@@ -10,6 +10,7 @@ import br.com.bemobi.model.Url;
 public class UrlDao {
 	
 	public List<Url> listarUrl() throws Exception{
+		
 		List<Url> lista = new ArrayList<>();
 		Connection connection = Dao.getConnection();
 		String sql = "Select * from url_repo";
@@ -24,7 +25,7 @@ public class UrlDao {
 			lista.add(url);
 		}
 		
-		return null;
+		return lista;
 	}
 	public void adicionarUrl(Url url) throws Exception {
 		Connection connection = Dao.getConnection();
