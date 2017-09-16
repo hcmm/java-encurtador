@@ -38,13 +38,13 @@ public class UrlService {
 	}
 	@POST
 	@Path("/add")
-	@Consumes(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON + CHARSET_UTF8)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String adicionarUrl(Url url) {
+	public String adicionarUrl(String url) {
 		String msg = "";
-		System.out.println(url.getUrl());
+		System.out.println("Parametro do recebimento ajax:"+ url);
 		try {
-			urlDao.adicionarUrl(url);
+			//urlDao.adicionarUrl(url);
 			msg = "Url adicionada com sucesso!";
 		} catch (Exception e) {
 			msg = "Erro ao adicionar!";
