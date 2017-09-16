@@ -1,2 +1,2 @@
 # java-encurtador
-Web Service encurtador de links.
+Web Service - encurtador de links.
