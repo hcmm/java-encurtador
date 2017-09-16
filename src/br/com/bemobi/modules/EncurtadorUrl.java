@@ -1,12 +1,26 @@
 package br.com.bemobi.modules;
 
-@Componen
+
+
+import java.util.Base64;
+import org.springframework.stereotype.Component;
+
+@Component
 public class EncurtadorUrl {
-	
-	public String encurtarUrl(Integer id) {
-		
+
+	public void encurtarUrl(Integer id) {
+		String str = String.valueOf(id);
+		byte[] bs= str.getBytes();
+		byte[] bytesEncoded = Base64.getEncoder().encode(bs);
+		System.out.println("ecncoded value is " + new String(bytesEncoded));
 	}
-	public Integer urlToId(String urlEncurtada) {
-		
+	public void urlToId(String urlEncurtada) {
+		byte[] valueDecoded= Base64.getDecoder().decode(urlEncurtada);
+		System.out.println("Decoded value is " + new String(valueDecoded));
+	}
+	public static void main(String[] args) {
+		EncurtadorUrl encurtadorUrl = new EncurtadorUrl();
+		encurtadorUrl.encurtarUrl(1);
+		encurtadorUrl.urlToId("ht");
 	}
 }

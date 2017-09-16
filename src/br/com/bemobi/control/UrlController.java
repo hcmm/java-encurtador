@@ -11,14 +11,7 @@ public class UrlController {
 	@Autowired
 	private EncurtadorUrl encurtadorUrl;
 	
-	@URL(message="Digite uma URL valida")
-	String url;
 	
-	public void validarUrl() {
-		
-		url = JOptionPane.showInputDialog("Digite a URL");
-		
-	}
 	public void calcularTempo() {
 		Long tempoDecorrido = System.currentTimeMillis();
 		System.out.println("Tempo Decorrido:"+ (tempoDecorrido -System.currentTimeMillis())+"ms");
