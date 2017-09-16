@@ -1,19 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Encurtador de URL's</title>
-<script type="text/javascript" src="Resources/js/encurtador.js"></script>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Consumo Ajax</title>
+	<script src="http://code.jquery.com/jquery-3.1.1.js"></script>
+
+	<script>
+		function exibeUrl (data) {
+			$("#retorno").html("id: " + data.Id + "url" + data.url+ "Alias: " + data.alias + "urlCurta: " + data.urlCurta+"<br><br>");
+		}
+		function cliqueBotao (argument) {
+			event.preventDefault();
+			var url = $(id_url).val();
+			jQuery.ajax({
+				type: "GET",
+				dataType: "json",
+				url: "http://localhost:8080/java-encurtador/rest/url/get/" +url,
+				success: exibeUrl
+			});
+			
+		}
+		$(document).ready(function() {
+			$("#enviar").on('click', cliqueBotao);
+		});
+		
+	</script>
 </head>
+
 <body>
-	<form action="" style="text-align: center" >
-		<h1>Digite aqui a URL</h1>
-		<br>
-		<input type="text" name="url" id="url"><br>
-		<input type="submit" value="Enviar" onclick="${getUrlEncurtada}">
-	</form><br><br>
-	<footer style="text-align: center">
-	<h4>Desenvolvido por Lauro Paz</h4>
-	</footer>
+	<header>
+		<img  style="margin-left: 47%" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2Tx4G3URE2mJq5HC-loirM86YWcjIclvEFJ2fmndoVG_enPn-XnTgOo4" alt="goblin">
+	</header>
+	<section>
+		
+		<form action="" id="formulario" style="text-align: center;" >
+			<h1>Consulta de Notas</h1>
+			<label for="">Id da nota a ser buscada: </label><br><br>
+			<input style="width: 200px;" type="text" id="id_url" name="url" placeholder="Ex: http://www.exemplo.com.br"><br>
+			<button  id="enviar">Enviar</button>
+		</form>
+		<hr>
+		<p id="retorno" style="text-align: center;"></p>
+	</section>
+	
 </body>
 </html>
