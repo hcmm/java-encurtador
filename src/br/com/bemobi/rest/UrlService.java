@@ -1,7 +1,6 @@
 package br.com.bemobi.rest;
 
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -68,8 +67,8 @@ public class UrlService {
 	}
 	@DELETE
 	@Path("/delete/{id}")
-	@Consumes(MediaType.TEXT_PLAIN)
-	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
 	public String removerUrl(Url url,@PathParam("id") Integer id) {
 		String msg = "";
 		try {
