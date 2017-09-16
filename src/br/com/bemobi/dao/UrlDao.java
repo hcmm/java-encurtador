@@ -1,5 +1,10 @@
 package br.com.bemobi.dao;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,9 +13,9 @@ import java.util.List;
 import br.com.bemobi.model.Url;
 
 public class UrlDao {
-	
+
 	public List<Url> listarUrl() throws Exception{
-		
+
 		List<Url> lista = new ArrayList<>();
 		Connection connection = Dao.getConnection();
 		String sql = "Select * from url_repo";
@@ -24,7 +29,7 @@ public class UrlDao {
 			url.setAlias(rs.getString("alias"));
 			lista.add(url);
 		}
-		
+
 		return lista;
 	}
 	public void adicionarUrl(Url url) throws Exception {

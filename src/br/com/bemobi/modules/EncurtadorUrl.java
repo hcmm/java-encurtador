@@ -12,7 +12,7 @@ public class EncurtadorUrl {
 		String str = String.valueOf(id);
 		byte[] bs= str.getBytes();
 		byte[] bytesEncoded = Base64.getEncoder().encode(bs);
-		System.out.println("ecncoded value is " + new String(bytesEncoded));
+		System.out.println("encoded value is " + new String(bytesEncoded));
 	}
 	public void urlToId(String urlEncurtada) {
 		byte[] valueDecoded= Base64.getDecoder().decode(urlEncurtada);
@@ -20,7 +20,7 @@ public class EncurtadorUrl {
 	}
 	public static void main(String[] args) {
 		EncurtadorUrl encurtadorUrl = new EncurtadorUrl();
-		encurtadorUrl.encurtarUrl(1);
-		encurtadorUrl.urlToId("ht");
+		encurtadorUrl.encurtarUrl(17);
+		encurtadorUrl.urlToId("MTc=");
 	}
 }
