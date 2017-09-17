@@ -10,6 +10,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import br.com.bemobi.dao.UrlDao;
 import br.com.bemobi.model.Url;
@@ -25,7 +26,7 @@ public class UrlService {
 		urlDao = new UrlDao();
 	}
 	@GET
-	@Path("")
+	@Path("/list")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Url> listaUrl(){
 		List<Url> lista = null;
@@ -37,16 +38,23 @@ public class UrlService {
 		return lista;
 	}
 	@POST
-	@Path("")
+	@Path("/add")
 	@Consumes(MediaType.APPLICATION_JSON + CHARSET_UTF8)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String adicionarUrl(Url url) {
-		//UrlDao urlDao = new UrlDao();
+	public String adicionarUrl(@QueryParam("url")String url) {
+		
 		String msg = "";
 		System.out.println("Parametro do recebimento ajax:"+ url);
 		try {
-			urlDao.adicionarUrl(url);
-			msg = "Url adicionada com sucesso!";
+			
+			Url user = new Url();
+			if(UrlDao.validaUrl(url) == true) {
+				user.setUrl(url);
+				urlDao.adicionarUrl(user);
+				msg = "Url adicionada com sucesso!";
+			}else {
+				msg = "Url invalida!";
+			}	
 		} catch (Exception e) {
 			msg = "Erro ao adicionar!";
 			e.printStackTrace();
@@ -54,7 +62,7 @@ public class UrlService {
 		return msg;
 	}
 	@GET
-	@Path("{id}")
+	@Path("/get/{id}")
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Url buscarUrl(@PathParam("id") Integer id) {
@@ -67,7 +75,7 @@ public class UrlService {
 		return url;
 	}
 	@DELETE
-	@Path("{id}")
+	@Path("/delete/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String removerUrl(Url url,@PathParam("id") Integer id) {
@@ -82,7 +90,7 @@ public class UrlService {
 		return msg;
 	}
 	@PUT
-	@Path("{id}")
+	@Path("/edit/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String editarUrl(Url url,@PathParam("id")Integer id) {

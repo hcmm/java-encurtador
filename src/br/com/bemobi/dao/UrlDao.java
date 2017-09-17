@@ -10,6 +10,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.validator.routines.UrlValidator;
+
 import br.com.bemobi.model.Url;
 
 public class UrlDao {
@@ -74,5 +77,16 @@ public class UrlDao {
 			url.setAlias(rs.getString("alias"));
 		}
 		return url;
+	}
+	public static boolean validaUrl(String string) {
+		String[] schemes = {"http","https", "ftp"};  
+		UrlValidator urlValidator = new UrlValidator(schemes);
+		if (urlValidator.isValid(string)) {
+			System.out.println("Validada!");
+		   return true;
+		} else {
+		   System.out.println("Não Validada");
+		   return false;
+		}
 	}
 }

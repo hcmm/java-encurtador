@@ -21,19 +21,15 @@ function exibeErroUrl () {
 }
 function getUrlEncurtada() {
 	   var urlGrande = $("#id_url").val();
-	   $.ajax({
-	        type: 'GET',
-	        url: 'http://localhost:8080/java-encurtador/rest/url/' + urlGrande,
-	        headers : {
-	        	accept : "application/json; charset=utf-8",
-	        	"content-type" : "application/json; charset=utf-8"
-	        },
-	        success: function(result){
-	        	var product = $.parseJSON(result);
-	        	alert(product.id);
-	        }
-	    });
-	}
+	   $.ajax({ 
+		   type: 'POST',
+		   dataType: 'json',
+		   url: 'http://localhost:8080/java-encurtador/rest/url/add?url='+urlGrande,
+		   success: function(data){        
+		     alert(data);
+		   }
+		});
+}
 $(document).ready(function() {
 	$("#enviar").on('click', getUrlEncurtada);
 });
