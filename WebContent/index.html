@@ -5,27 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Consumo Ajax</title>
 	<script src="http://code.jquery.com/jquery-3.1.1.js"></script>
-
-	<script>
-		function exibeUrl (data) {
-			$("#retorno").html("id: " + data.Id + "url" + data.url+ "Alias: " + data.alias + "urlCurta: " + data.urlCurta+"<br><br>");
-		}
-		function cliqueBotao (argument) {
-			event.preventDefault();
-			var url = $(id_url).val();
-			jQuery.ajax({
-				type: "GET",
-				dataType: "json",
-				url: "http://localhost:8080/java-encurtador/rest/url/get/" +url,
-				success: exibeUrl
-			});
-			
-		}
-		$(document).ready(function() {
-			$("#enviar").on('click', cliqueBotao);
-		});
-		
-	</script>
+	<script type="text/javascript" src="js/script.js"></script>
 </head>
 
 <body>
@@ -35,10 +15,11 @@
 	<section>
 		
 		<form action="" id="formulario" style="text-align: center;" >
-			<h1>Consulta de Notas</h1>
-			<label for="">Id da nota a ser buscada: </label><br><br>
-			<input style="width: 200px;" type="text" id="id_url" name="url" placeholder="Ex: http://www.exemplo.com.br"><br>
-			<button  id="enviar">Enviar</button>
+			<h1>Consulta de URL's</h1>
+			<label for="">Id da URL a ser buscada: </label><br><br>
+			<input type="text" id="id_url" name="url" style="width: 200px; height: 35px; text-align: center" placeholder="Não digite nada para listar">
+			<br><button  id="enviar">Enviar</button><br>
+			<span id="loading"></span>	
 		</form>
 		<hr>
 		<p id="retorno" style="text-align: center;"></p>

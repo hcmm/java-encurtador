@@ -25,7 +25,7 @@ public class UrlService {
 		urlDao = new UrlDao();
 	}
 	@GET
-	@Path("/list")
+	@Path("")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Url> listaUrl(){
 		List<Url> lista = null;
@@ -37,14 +37,15 @@ public class UrlService {
 		return lista;
 	}
 	@POST
-	@Path("/add")
+	@Path("")
 	@Consumes(MediaType.APPLICATION_JSON + CHARSET_UTF8)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String adicionarUrl(String url) {
+	public String adicionarUrl(Url url) {
+		//UrlDao urlDao = new UrlDao();
 		String msg = "";
 		System.out.println("Parametro do recebimento ajax:"+ url);
 		try {
-			//urlDao.adicionarUrl(url);
+			urlDao.adicionarUrl(url);
 			msg = "Url adicionada com sucesso!";
 		} catch (Exception e) {
 			msg = "Erro ao adicionar!";
@@ -53,7 +54,7 @@ public class UrlService {
 		return msg;
 	}
 	@GET
-	@Path("/get/{id}")
+	@Path("{id}")
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Url buscarUrl(@PathParam("id") Integer id) {
@@ -66,7 +67,7 @@ public class UrlService {
 		return url;
 	}
 	@DELETE
-	@Path("/delete/{id}")
+	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String removerUrl(Url url,@PathParam("id") Integer id) {
@@ -81,7 +82,7 @@ public class UrlService {
 		return msg;
 	}
 	@PUT
-	@Path("/edit/{id}")
+	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String editarUrl(Url url,@PathParam("id")Integer id) {
