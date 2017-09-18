@@ -38,7 +38,7 @@ public class UrlDao {
 		connection.close();
 		return lista;
 	}
-	public void adicionarUrl(Url url) throws Exception {
+	public Integer adicionarUrl(Url url) throws Exception {
 		Connection connection = Dao.getConnection();
 		String sql = "insert into url_repo(url,urlCurta,alias) values (?,?,?)";
 		PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -47,16 +47,12 @@ public class UrlDao {
 		statement.setString(3, url.getAlias());
 		statement.execute();
 		ResultSet rsId = statement.getGeneratedKeys();
-		
 		if(rsId.next()) {
 			id = rsId.getInt(1);
-			EncurtadorUrl encurtadorUrl = new EncurtadorUrl();
-			encurtadorUrl.encurtarUrl(id);
-			System.out.println(url.getUrl()+ "_" + encurtadorUrl.getEncodado());
-			
 		}
 		statement.close();
 		connection.close();
+		return id;
 	}
 	public void editarUrl(Url url, Integer id) throws Exception {
 		Connection connection = Dao.getConnection();

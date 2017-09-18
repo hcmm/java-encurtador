@@ -16,11 +16,10 @@ import br.com.bemobi.dao.UrlDao;
 import br.com.bemobi.model.Url;
 
 @Path("/url")
-public class UrlService {
-	
+public class UrlService {	
 	private UrlDao urlDao;
 	private static final String CHARSET_UTF8 = ";charset=utf-8";
-	
+		
 	@PostConstruct
 	private void init() {
 		urlDao = new UrlDao();
@@ -40,18 +39,17 @@ public class UrlService {
 	@POST
 	@Path("/add")
 	@Consumes(MediaType.APPLICATION_JSON + CHARSET_UTF8)
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	public String adicionarUrl(@QueryParam("url")String url, Long time) {
+		Integer id = 0;
 		time = System.currentTimeMillis();
 		String msg = "";
 		System.out.println("Parametro do recebimento ajax:"+ url);
-		try {
-			
+		try {			
 			Url user = new Url();
 			if(UrlDao.validaUrl(url) == true) {
 				user.setUrl(url);
-				urlDao.adicionarUrl(user);
-				
+				id = urlDao.adicionarUrl(user);
 				msg = "Url adicionada com sucesso!";
 			}else {
 				msg = "Url invalida!";
@@ -60,8 +58,8 @@ public class UrlService {
 			msg = "Erro ao adicionar!";
 			e.printStackTrace();
 		}
-		System.out.println((time =  System.currentTimeMillis()-time) + "ms");
-		return msg;
+		System.out.println("ID: " + id + "\n"+(time =  System.currentTimeMillis()-time) + "ms");
+		return msg + id;
 	}
 	@GET
 	@Path("/get/{id}")

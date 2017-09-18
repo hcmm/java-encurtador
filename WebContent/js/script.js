@@ -25,6 +25,9 @@ function getUrlEncurtada() {
 		type: 'POST',
 		dataType: 'json',
 		url: 'http://localhost:8080/java-encurtador/rest/url/add?url='+urlGrande,
+		success: function () {
+			alert(msg);
+		}
 	});
 }
 $(document).ready(function() {
