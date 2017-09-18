@@ -8,15 +8,17 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.validator.routines.UrlValidator;
 
 import br.com.bemobi.model.Url;
+import br.com.bemobi.modules.EncurtadorUrl;
 
 public class UrlDao {
-
+	int id =0;
 	public List<Url> listarUrl() throws Exception{
 
 		List<Url> lista = new ArrayList<>();
@@ -32,17 +34,29 @@ public class UrlDao {
 			url.setAlias(rs.getString("alias"));
 			lista.add(url);
 		}
-
+		statement.close();
+		connection.close();
 		return lista;
 	}
 	public void adicionarUrl(Url url) throws Exception {
 		Connection connection = Dao.getConnection();
 		String sql = "insert into url_repo(url,urlCurta,alias) values (?,?,?)";
-		PreparedStatement statement = connection.prepareStatement(sql);
+		PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		statement.setString(1, url.getUrl());
 		statement.setString(2, url.getUrlCurta());
 		statement.setString(3, url.getAlias());
 		statement.execute();
+		ResultSet rsId = statement.getGeneratedKeys();
+		
+		if(rsId.next()) {
+			id = rsId.getInt(1);
+			EncurtadorUrl encurtadorUrl = new EncurtadorUrl();
+			encurtadorUrl.encurtarUrl(id);
+			System.out.println(url.getUrl()+ "_" + encurtadorUrl.getEncodado());
+			
+		}
+		statement.close();
+		connection.close();
 	}
 	public void editarUrl(Url url, Integer id) throws Exception {
 		Connection connection = Dao.getConnection();
@@ -53,6 +67,9 @@ public class UrlDao {
 		statement.setString(3, url.getAlias());
 		statement.setInt(4, id);
 		statement.execute();
+		statement.close();
+		connection.close();
+		
 	}
 	public void removerUrl(Integer id)throws Exception {
 		Connection connection = Dao.getConnection();
@@ -60,6 +77,8 @@ public class UrlDao {
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setInt(1, id);
 		statement.execute();
+		statement.close();
+		connection.close();
 	}
 	public Url buscarUrl(Integer id)throws Exception {
 		Url url = null;
@@ -76,7 +95,10 @@ public class UrlDao {
 			url.setUrlCurta(rs.getString("urlCurta"));
 			url.setAlias(rs.getString("alias"));
 		}
+		statement.close();
+		connection.close();
 		return url;
+		
 	}
 	public static boolean validaUrl(String string) {
 		String[] schemes = {"http","https", "ftp"};  

@@ -20,15 +20,12 @@ function exibeErroUrl () {
 	$("#loading").empty();
 }
 function getUrlEncurtada() {
-	   var urlGrande = $("#id_url").val();
-	   $.ajax({ 
-		   type: 'POST',
-		   dataType: 'json',
-		   url: 'http://localhost:8080/java-encurtador/rest/url/add?url='+urlGrande,
-		   success: function(data){        
-		     alert(data);
-		   }
-		});
+	var urlGrande = $("#id_url").val();
+	$.ajax({ 
+		type: 'POST',
+		dataType: 'json',
+		url: 'http://localhost:8080/java-encurtador/rest/url/add?url='+urlGrande,
+	});
 }
 $(document).ready(function() {
 	$("#enviar").on('click', getUrlEncurtada);

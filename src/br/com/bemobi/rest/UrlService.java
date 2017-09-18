@@ -41,8 +41,8 @@ public class UrlService {
 	@Path("/add")
 	@Consumes(MediaType.APPLICATION_JSON + CHARSET_UTF8)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String adicionarUrl(@QueryParam("url")String url) {
-		
+	public String adicionarUrl(@QueryParam("url")String url, Long time) {
+		time = System.currentTimeMillis();
 		String msg = "";
 		System.out.println("Parametro do recebimento ajax:"+ url);
 		try {
@@ -51,6 +51,7 @@ public class UrlService {
 			if(UrlDao.validaUrl(url) == true) {
 				user.setUrl(url);
 				urlDao.adicionarUrl(user);
+				
 				msg = "Url adicionada com sucesso!";
 			}else {
 				msg = "Url invalida!";
@@ -59,6 +60,7 @@ public class UrlService {
 			msg = "Erro ao adicionar!";
 			e.printStackTrace();
 		}
+		System.out.println((time =  System.currentTimeMillis()-time) + "ms");
 		return msg;
 	}
 	@GET
