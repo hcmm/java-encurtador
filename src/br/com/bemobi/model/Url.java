@@ -1,7 +1,5 @@
 package br.com.bemobi.model;
 
-import org.apache.commons.validator.UrlValidator;
-
 public class Url {
 	private Integer id;
 	private String url;
@@ -10,7 +8,6 @@ public class Url {
 	
 	public Url() {		
 	}
-	
 	public Url(Integer id, String url, String urlCurta, String alias) {
 		super();
 		this.id = id;
@@ -18,7 +15,6 @@ public class Url {
 		this.urlCurta = urlCurta;
 		this.alias = alias;
 	}
-
 	public Integer getId() {
 		return id;
 	}

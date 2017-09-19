@@ -22,20 +22,21 @@ function exibeErroUrl () {
 }
 
 function getUrlEncurtada(){
-	var urlGrande = $("#id_url").val();
-	alert("passou");
-	$.ajax({
-		  url: "http://localhost:8080/java-encurtador/rest/url/add?url=" + urlGrande,
-		  global: false,
-		  type: "POST",
-		  success: function(){
-			  alert("Sucesso");
-		  },
-		  error: function(){
-			  alert("Erro")
-		  }
-		});
+	$.ajax({ 
+		url: 'http://localhost:8080/java-encurtador/rest/url/add',
+		type: 'POST',
+		cache: false,
+		dataType: 'json',
 		
+		success: function () {
+			alert("Sucesso");
+		},
+		error: function (xhr, opt, error) {
+				alert("Aqui" + opt);
+			   alert(xhr.status);
+			   alert(error);
+			}
+	});	
 }
 $(document).ready(function() {
 	$("#enviar").on('click', getUrlEncurtada);
