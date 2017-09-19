@@ -3,16 +3,9 @@ package br.com.bemobi.modules;
 
 
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Base64;
-import java.util.Base64.Encoder;
 
-import org.glassfish.jersey.server.Uri;
-import org.springframework.stereotype.Component;
-
-@Component
 public class EncurtadorUrl {
 	private String encodado;
 	private Integer decodado;
