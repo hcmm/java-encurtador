@@ -23,11 +23,11 @@ function exibeErroUrl () {
 
 function getUrlEncurtada(){
 	$.ajax({ 
-		url: 'http://localhost:8080/java-encurtador/rest/url/add',
-		type: 'POST',
+		url: "http://localhost:8080/java-encurtador/rest/url/add",
+		type: "POST",
 		cache: false,
-		dataType: 'json',
-		
+		dataType: "json",
+		data: { url : $("#id_url")},
 		success: function () {
 			alert("Sucesso");
 		},
