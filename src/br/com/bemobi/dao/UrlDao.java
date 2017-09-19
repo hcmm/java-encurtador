@@ -1,21 +1,13 @@
 package br.com.bemobi.dao;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.commons.validator.routines.UrlValidator;
-
 import br.com.bemobi.model.Url;
-import br.com.bemobi.modules.EncurtadorUrl;
 
 public class UrlDao {
 	int id =0;

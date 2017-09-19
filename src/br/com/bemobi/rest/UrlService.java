@@ -12,6 +12,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import br.com.bemobi.dao.UrlDao;
 import br.com.bemobi.model.Url;
 
@@ -19,7 +20,7 @@ import br.com.bemobi.model.Url;
 public class UrlService {	
 	private UrlDao urlDao;
 	private static final String CHARSET_UTF8 = ";charset=utf-8";
-		
+		Response response; 
 	@PostConstruct
 	private void init() {
 		urlDao = new UrlDao();
@@ -38,11 +39,10 @@ public class UrlService {
 	}
 	@POST
 	@Path("/add")
-	@Consumes(MediaType.APPLICATION_JSON + CHARSET_UTF8)
-	@Produces(MediaType.APPLICATION_JSON)
-	public String adicionarUrl(@QueryParam("url")String url, Long time) {
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String adicionarUrl(@QueryParam("url")String url) {
 		Integer id = 0;
-		time = System.currentTimeMillis();
 		String msg = "";
 		System.out.println("Parametro do recebimento ajax:"+ url);
 		try {			
@@ -58,8 +58,8 @@ public class UrlService {
 			msg = "Erro ao adicionar!";
 			e.printStackTrace();
 		}
-		System.out.println("ID: " + id + "\n"+(time =  System.currentTimeMillis()-time) + "ms");
-		return msg + id;
+		System.out.println("ID: " + id);
+		return "{\"retorno\":\"TESTA\"}";
 	}
 	@GET
 	@Path("/get/{id}")

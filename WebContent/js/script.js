@@ -11,24 +11,31 @@ function exibeUrl (data) {
 	}
 	$("#loading").empty();
 }
+
 function aguardarUrl () {
 	$("#loading").html("<img style='width: 55px; height: 55px;' src='image/giphy.gif' alt='loading'></img>");
-
 }
+
 function exibeErroUrl () {
 	$("#retorno").html("Ops, Algo acontecendo de errado, vamos ver com o estágiario.");
 	$("#loading").empty();
 }
-function getUrlEncurtada() {
+
+function getUrlEncurtada(){
 	var urlGrande = $("#id_url").val();
-	$.ajax({ 
-		type: 'POST',
-		dataType: 'json',
-		url: 'http://localhost:8080/java-encurtador/rest/url/add?url='+urlGrande,
-		success: function () {
-			alert(msg);
-		}
-	});
+	alert("passou");
+	$.ajax({
+		  url: "http://localhost:8080/java-encurtador/rest/url/add?url=" + urlGrande,
+		  global: false,
+		  type: "POST",
+		  success: function(){
+			  alert("Sucesso");
+		  },
+		  error: function(){
+			  alert("Erro")
+		  }
+		});
+		
 }
 $(document).ready(function() {
 	$("#enviar").on('click', getUrlEncurtada);
